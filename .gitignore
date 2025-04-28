@@ -1,0 +1,9 @@
+.idea/
+.build/
+cmake-build-debug
+
+test_malloc
+libft_malloc*
+
+*.o
+*.d
