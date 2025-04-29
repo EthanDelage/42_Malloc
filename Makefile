@@ -1,5 +1,7 @@
 NAME		=		libft_malloc_$(HOST_TYPE)$(LIB_EXT)
 
+SHORT_NAME	=		libft_malloc$(LIB_EXT)
+
 NAME_TEST	=		test_malloc
 
 ifeq ($(HOST_TYPE),)
@@ -80,7 +82,7 @@ clean:
 
 .PHONY:				fclean
 fclean:				clean
-					$(RM) $(NAME) $(NAME_TEST)
+					$(RM) $(NAME) $(SHORT_NAME) $(NAME_TEST)
 
 .PHONY:				re
 re:					fclean
@@ -103,6 +105,7 @@ format:
 
 $(NAME):			$(OBJ)
 					$(CC) --shared $(CFLAGS) $(IFLAGS) $^ $(LFLAGS) -o $@
+					ln -s $(NAME) $(SHORT_NAME)
 
 $(NAME_TEST):		$(TEST_OBJ)
 					$(MAKE) $(NAME)

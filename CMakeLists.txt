@@ -18,6 +18,7 @@ execute_process(
 set(HOST_TYPE "${MACHINE_ARCH}_${SYSTEM_NAME}")
 message(STATUS "Detected platform: ${HOST_TYPE}")
 set(MALLOC_LIB_TARGET "ft_malloc_${HOST_TYPE}")
+set(MALLOC_LIB_LINK_TARGET "ft_malloc")
 
 add_subdirectory(src)
 
