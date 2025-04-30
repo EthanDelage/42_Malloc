@@ -2,7 +2,7 @@ NAME		=		libft_malloc_$(HOST_TYPE)$(LIB_EXT)
 
 SHORT_NAME	=		libft_malloc$(LIB_EXT)
 
-NAME_TEST	=		test_malloc
+NAME_TEST	=		malloc_tests
 
 ifeq ($(HOST_TYPE),)
 	HOST_TYPE := $(shell uname -m)_$(shell uname -s)
@@ -24,7 +24,7 @@ SRC_DIR		=		src/
 
 INC_DIR		=		include/
 
-TEST_DIR	=		tests/
+TEST_DIR	=		tests/integration/
 
 BUILD_DIR	=		.build/$(HOST_TYPE)/
 
@@ -42,7 +42,7 @@ DEPS		=		$(OBJ:.o=.d)
 
 TEST_SRC	=		main.c
 
-TEST_OBJ	=		$(addprefix $(BUILD_DIR)tests/, $(TEST_SRC:.c=.o))
+TEST_OBJ	=		$(addprefix $(BUILD_DIR)$(TEST_DIR), $(TEST_SRC:.c=.o))
 
 TEST_DEPS	=		$(TEST_OBJ:.o=.d)
 
