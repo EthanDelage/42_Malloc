@@ -1,4 +1,4 @@
-#include "chunk_dll.h"
+#include "chunk.h"
 
 #include <stdlib.h>
 #include <unity.h>
