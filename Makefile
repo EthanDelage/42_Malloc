@@ -94,7 +94,7 @@ rerun:				re
 
 .PHONY:				format
 format:
-					find . -name "*.c" -o -name "*.h" | xargs clang-format -i
+					git ls-files "*.c" "*.h" | xargs clang-format -i
 
 ################
 #	EXECUTABLES
