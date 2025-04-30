@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 
+#define ALIGNMENT 8
 #define TINY_MAX_SIZE 64
 #define SMALL_MAX_SIZE 512
 #define ZONE_CHUNK_MIN_COUNT 100
