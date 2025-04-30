@@ -2,7 +2,9 @@ add_library(${MALLOC_LIB_TARGET} SHARED
         ${PROJECT_SOURCE_DIR}/include/malloc.h
         malloc.c
         free.c
-        realloc.c)
+        realloc.c
+        chunk/chunk_dll.c
+        ${PROJECT_SOURCE_DIR}/include/chunk_dll.h)
 
 add_custom_command(
         TARGET ${MALLOC_LIB_TARGET}
