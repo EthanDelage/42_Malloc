@@ -4,7 +4,7 @@
 malloc_data_t malloc_data = {0};
 
 void *malloc(size_t size) {
-    (void) size;
+    (void)size;
     printf("malloc\n");
     return NULL;
 }

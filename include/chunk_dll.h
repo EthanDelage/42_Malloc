@@ -6,4 +6,4 @@
 void chunk_dll_insert(chunk_header_t **pos, chunk_header_t *value);
 void chunk_dll_remove(chunk_header_t **pos);
 
-#endif //CHUNK_DLL_H
+#endif // CHUNK_DLL_H
