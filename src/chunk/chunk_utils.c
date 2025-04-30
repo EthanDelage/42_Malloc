@@ -52,3 +52,23 @@ void chunk_coalesce(chunk_header_t *chunk) {
     }
     chunk->size += sizeof(chunk_header_t) + next->size;
 }
+
+/**
+ * @brief Checks whether two chunks are adjacent in memory.
+ *
+ * This function determines if the second chunk directly follows the first
+ * in memory, taking into account the size of the first chunk and its header.
+ * It is typically used to check whether two free chunks can be coalesced
+ * into a single larger chunk.
+ *
+ * @param first Pointer to the first chunk in memory.
+ * @param second Pointer to the second chunk in memory, which will be checked
+ *        if it directly follows the first chunk.
+ * @return 1 if the second chunk is immediately after the first chunk in memory,
+ *         0 otherwise.
+ */
+uint8_t is_adjacent_chunk(const chunk_header_t *first,
+                          const chunk_header_t *second) {
+    return (char *)first + sizeof(chunk_header_t) + first->size ==
+           (char *)second;
+}
