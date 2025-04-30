@@ -1,5 +1,7 @@
 add_executable(unit_tests
-    main.c)
+    main.c
+    test_chunk_dll.c
+    ${PROJECT_SOURCE_DIR}/src/chunk/chunk_dll.c)
 
 target_include_directories(unit_tests PUBLIC ${PROJECT_SOURCE_DIR}/include)
 
