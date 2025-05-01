@@ -1,5 +1,6 @@
 #include "chunk.h"
 
+#include <stdlib.h>
 #include <unity.h>
 
 extern void run_chunk_dll_insert_tests(void);

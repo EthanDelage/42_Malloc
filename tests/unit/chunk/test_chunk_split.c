@@ -1,5 +1,6 @@
 #include "test_chunk.h"
 
+#include <stdlib.h>
 #include <unity.h>
 
 #define MIN_SPLIT_REMAINDER (sizeof(chunk_header_t) + ALIGNMENT)

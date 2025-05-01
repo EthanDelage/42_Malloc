@@ -1,5 +1,6 @@
 #include "test_chunk.h"
 
+#include <stdlib.h>
 #include <unity.h>
 
 static void test_transfer_chunk_to_empty_list(void);

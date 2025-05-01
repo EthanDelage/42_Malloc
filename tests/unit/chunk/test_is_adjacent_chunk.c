@@ -1,5 +1,6 @@
 #include "test_chunk.h"
 
+#include <stdlib.h>
 #include <unity.h>
 
 static void test_adjacent_chunks(void);
