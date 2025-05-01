@@ -1,11 +1,13 @@
 add_executable(unit_tests
     ${PROJECT_SOURCE_DIR}/src/chunk/chunk_dll.c
+    ${PROJECT_SOURCE_DIR}/src/chunk/chunk_utils.c
     main.c
     chunk/test_chunk.c
     chunk/test_chunk_dll_remove.c
     chunk/test_chunk.h
     chunk/test_chunk_dll_insert.c
-    chunk/test_chunk_dll_insert_sorted.c)
+    chunk/test_chunk_dll_insert_sorted.c
+    chunk/test_chunk_split.c)
 
 target_include_directories(unit_tests PUBLIC ${PROJECT_SOURCE_DIR}/include)
 
