@@ -8,7 +8,8 @@ add_executable(unit_tests
     chunk/test_chunk_dll_insert.c
     chunk/test_chunk_dll_insert_sorted.c
     chunk/test_chunk_split.c
-    chunk/test_chunk_coalesce.c)
+    chunk/test_chunk_coalesce.c
+    chunk/test_is_adjacent_chunk.c)
 
 target_include_directories(unit_tests PUBLIC ${PROJECT_SOURCE_DIR}/include)
 

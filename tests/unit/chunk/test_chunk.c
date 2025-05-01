@@ -7,6 +7,7 @@ extern void run_chunk_dll_insert_sorted_tests(void);
 extern void run_chunk_dll_remove_tests(void);
 extern void run_chunk_split_tests(void);
 extern void run_chunk_coalesce_tests(void);
+extern void run_is_adjacent_chunk_tests(void);
 
 void run_chunk_dll_tests(void) {
     run_chunk_dll_insert_tests();
