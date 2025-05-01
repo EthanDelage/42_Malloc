@@ -34,7 +34,11 @@ BUILD_DIR	=		.build/$(HOST_TYPE)/
 
 SRC			=		malloc.c \
 					free.c \
-					realloc.c
+					realloc.c \
+					chunk/chunk_dll.c \
+					chunk/chunk_utils.c \
+					memory/memory_utils.c \
+					memory/memory_zone.c \
 
 OBJ			=		$(addprefix $(BUILD_DIR), $(SRC:.c=.o))
 
@@ -105,7 +109,7 @@ format:
 
 $(NAME):			$(OBJ)
 					$(CC) --shared $(CFLAGS) $(IFLAGS) $^ $(LFLAGS) -o $@
-					ln -s $(NAME) $(SHORT_NAME)
+					ln -sf $(NAME) $(SHORT_NAME)
 
 $(NAME_TEST):		$(TEST_OBJ)
 					$(MAKE) $(NAME)
