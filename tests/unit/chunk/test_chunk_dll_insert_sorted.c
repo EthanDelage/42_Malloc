@@ -30,7 +30,6 @@ static void test_insert_sorted_empty_list(void) {
 static void test_insert_sorted_at_head(void) {
     chunk_header_t *chunk1 = make_chunk(64);
     chunk_header_t *chunk2 = make_chunk(64); // Address before chunk1
-    chunk_header_t *head = chunk1;
 
     // Ensure chunk2 has a lower address
     if (chunk2 > chunk1) {
@@ -38,6 +37,7 @@ static void test_insert_sorted_at_head(void) {
         chunk1 = chunk2;
         chunk2 = tmp;
     }
+    chunk_header_t *head = chunk1;
 
     chunk_dll_insert_sorted(&head, chunk2);
 
@@ -88,14 +88,13 @@ static void test_insert_sorted_in_middle(void) {
 static void test_insert_sorted_at_tail(void) {
     chunk_header_t *chunk1 = make_chunk(64);
     chunk_header_t *chunk2 = make_chunk(64);
-    chunk_header_t *head = chunk1;
 
     if (chunk2 < chunk1) {
         chunk_header_t *tmp = chunk1;
         chunk1 = chunk2;
         chunk2 = tmp;
-        head = chunk1;
     }
+    chunk_header_t *head = chunk1;
 
     chunk_dll_insert_sorted(&head, chunk2);
 
