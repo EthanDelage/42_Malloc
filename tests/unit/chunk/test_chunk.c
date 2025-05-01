@@ -6,12 +6,14 @@ extern void run_chunk_dll_insert_tests(void);
 extern void run_chunk_dll_insert_sorted_tests(void);
 extern void run_chunk_dll_remove_tests(void);
 extern void run_chunk_split_tests(void);
+extern void run_chunk_coalesce_tests(void);
 
 void run_chunk_dll_tests(void) {
     run_chunk_dll_insert_tests();
     run_chunk_dll_insert_sorted_tests();
     run_chunk_dll_remove_tests();
     run_chunk_split_tests();
+    run_chunk_coalesce_tests();
 }
 
 chunk_header_t *make_chunk(size_t size) {
