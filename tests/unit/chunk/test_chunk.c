@@ -10,10 +10,10 @@ void run_chunk_dll_tests(void) {
     run_chunk_dll_remove_tests();
 }
 
-chunk_header_t *make_chunk(size_t size, int in_use) {
+chunk_header_t *make_chunk(size_t size) {
     chunk_header_t *chunk = malloc(sizeof(chunk_header_t));
     chunk->size = size;
-    chunk->in_use = in_use;
+    chunk->in_use = 0;
     chunk->next = NULL;
     chunk->previous = NULL;
     return chunk;

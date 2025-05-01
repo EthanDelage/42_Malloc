@@ -13,9 +13,9 @@ void run_chunk_dll_remove_tests(void) {
 }
 
 static void test_remove_middle_node(void) {
-    chunk_header_t *head = make_chunk(64, 0);
-    chunk_header_t *middle = make_chunk(32, 0);
-    chunk_header_t *tail = make_chunk(16, 0);
+    chunk_header_t *head = make_chunk(64);
+    chunk_header_t *middle = make_chunk(32);
+    chunk_header_t *tail = make_chunk(16);
 
     head->next = middle;
     middle->previous = head;
@@ -35,8 +35,8 @@ static void test_remove_middle_node(void) {
 }
 
 static void test_remove_head_node(void) {
-    chunk_header_t *head = make_chunk(64, 0);
-    chunk_header_t *second = make_chunk(32, 0);
+    chunk_header_t *head = make_chunk(64);
+    chunk_header_t *second = make_chunk(32);
 
     head->next = second;
     second->previous = head;
@@ -54,8 +54,8 @@ static void test_remove_head_node(void) {
 }
 
 static void test_remove_last_chunk(void) {
-    chunk_header_t *head = make_chunk(64, 0);
-    chunk_header_t *tail = make_chunk(32, 0);
+    chunk_header_t *head = make_chunk(64);
+    chunk_header_t *tail = make_chunk(32);
 
     head->next = tail;
     tail->previous = head;

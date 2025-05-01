@@ -26,7 +26,7 @@ chunk_header_t *chunk_split(chunk_header_t *chunk, size_t size) {
     new = (chunk_header_t *)((uint8_t *)chunk + size + sizeof(chunk_header_t));
     new->size = chunk->size - size - sizeof(chunk_header_t);
     chunk->size = size;
-    chunk_dll_insert(&chunk, new);
+    chunk_dll_insert_after(chunk, new);
     return new;
 }
 
