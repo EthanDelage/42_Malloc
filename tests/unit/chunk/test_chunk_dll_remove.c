@@ -22,7 +22,7 @@ static void test_remove_middle_node(void) {
     middle->next = tail;
     tail->previous = middle;
 
-    chunk_dll_remove(&middle);
+    chunk_dll_remove(middle);
 
     TEST_ASSERT_EQUAL_PTR(head->next, tail);
     TEST_ASSERT_EQUAL_PTR(tail->previous, head);
@@ -41,10 +41,8 @@ static void test_remove_head_node(void) {
     head->next = second;
     second->previous = head;
 
-    chunk_header_t *removal_target = head;
-    chunk_dll_remove(&removal_target);
+    chunk_dll_remove(head);
 
-    TEST_ASSERT_EQUAL_PTR(second, removal_target);
     TEST_ASSERT_NULL(second->previous);
     TEST_ASSERT_NULL(head->next);
     TEST_ASSERT_NULL(head->previous);
@@ -60,7 +58,7 @@ static void test_remove_last_chunk(void) {
     head->next = tail;
     tail->previous = head;
 
-    chunk_dll_remove(&tail);
+    chunk_dll_remove(tail);
 
     TEST_ASSERT_NULL(head->next);
     TEST_ASSERT_NULL(tail->next);

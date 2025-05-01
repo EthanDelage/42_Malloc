@@ -45,19 +45,27 @@ void chunk_dll_insert_before(chunk_header_t *pos, chunk_header_t *value) {
     }
 }
 
-void chunk_dll_remove(chunk_header_t **pos) {
-    chunk_header_t *to_remove = *pos;
-    chunk_header_t *previous = to_remove->previous;
-    chunk_header_t *next = to_remove->next;
+/**
+ * @brief Removes a chunk from a doubly linked list of memory chunks.
+ *
+ * This function unlinks the given chunk from the doubly linked list it belongs
+ * to. It properly updates the `previous` and `next` pointers of adjacent chunks
+ * to maintain list consistency. The removed chunk's `next` and `previous`
+ * pointers are set to NULL.
+ *
+ * @param pos Pointer to the chunk to remove. Must be a valid, non-null node in
+ * a linked list.
+ */
+void chunk_dll_remove(chunk_header_t *pos) {
+    chunk_header_t *previous = pos->previous;
+    chunk_header_t *next = pos->next;
 
     if (next != NULL) {
         next->previous = previous;
-        to_remove->next = NULL;
+        pos->next = NULL;
     }
     if (previous != NULL) {
         previous->next = next;
-        to_remove->previous = NULL;
-    } else {
-        *pos = next;
+        pos->previous = NULL;
     }
 }
