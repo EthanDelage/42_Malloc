@@ -21,17 +21,17 @@ void chunk_dll_insert(chunk_header_t **pos, chunk_header_t *value) {
 
 void chunk_dll_remove(chunk_header_t **pos) {
     chunk_header_t *to_remove = *pos;
-    chunk_header_t *previous_chunk = to_remove->previous;
-    chunk_header_t *next_chunk = to_remove->next;
+    chunk_header_t *previous = to_remove->previous;
+    chunk_header_t *next = to_remove->next;
 
-    if (next_chunk != NULL) {
-        next_chunk->previous = previous_chunk;
-        (*pos)->next = NULL;
+    if (next != NULL) {
+        next->previous = previous;
+        to_remove->next = NULL;
     }
-    if (previous_chunk != NULL) {
-        previous_chunk->next = next_chunk;
+    if (previous != NULL) {
+        previous->next = next;
         to_remove->previous = NULL;
     } else {
-        *pos = next_chunk;
+        *pos = next;
     }
 }
