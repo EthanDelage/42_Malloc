@@ -98,3 +98,22 @@ void chunk_dll_remove(chunk_header_t *pos) {
         pos->previous = NULL;
     }
 }
+
+/**
+ * @brief Transfers a chunk from its current list to a new sorted doubly linked
+ * list.
+ *
+ * This function removes the given chunk from its current doubly linked list and
+ * inserts it into a new list, maintaining the order of chunks based on their
+ * memory addresses. This is typically used to reorganize chunks between zones
+ * or states, such as moving from a free list to an allocated list or vice
+ * versa.
+ *
+ * @param dest_head Pointer to the head pointer of the destination sorted list.
+ * @param chunk Pointer to the chunk to be transferred.
+ */
+void chunk_dll_transfer_sorted(chunk_header_t **dest_head,
+                               chunk_header_t *chunk) {
+    chunk_dll_remove(chunk);
+    chunk_dll_insert_sorted(dest_head, chunk);
+}
