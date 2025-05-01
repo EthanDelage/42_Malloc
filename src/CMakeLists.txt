@@ -4,9 +4,11 @@ add_library(${MALLOC_LIB_TARGET} SHARED
         realloc.c
         chunk/chunk_dll.c
         chunk/chunk_utils.c
+        memory/memory_utils.c
         memory/memory_zone.c
         ${PROJECT_SOURCE_DIR}/include/malloc.h
         ${PROJECT_SOURCE_DIR}/include/chunk.h
+        ${PROJECT_SOURCE_DIR}/include/memory/memory_utils.h
         ${PROJECT_SOURCE_DIR}/include/memory/memory_zone.h
         ${PROJECT_SOURCE_DIR}/include/memory/malloc_data.h
         ${PROJECT_SOURCE_DIR}/include/memory/page_header.h
