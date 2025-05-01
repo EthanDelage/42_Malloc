@@ -1,0 +1,8 @@
+#ifndef MEMORY_ZONE_H
+#define MEMORY_ZONE_H
+
+#define TINY_MAX_SIZE 64
+#define SMALL_MAX_SIZE 512
+#define ZONE_CHUNK_MIN_COUNT 100
+
+#endif // MEMORY_ZONE_H

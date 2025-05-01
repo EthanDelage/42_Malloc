@@ -3,7 +3,13 @@ add_library(${MALLOC_LIB_TARGET} SHARED
         free.c
         realloc.c
         chunk/chunk_dll.c
-        chunk/chunk_utils.c)
+        chunk/chunk_utils.c
+        ${PROJECT_SOURCE_DIR}/include/malloc.h
+        ${PROJECT_SOURCE_DIR}/include/chunk.h
+        ${PROJECT_SOURCE_DIR}/include/memory/memory_zone.h
+        ${PROJECT_SOURCE_DIR}/include/memory/malloc_data.h
+        ${PROJECT_SOURCE_DIR}/include/memory/page_header.h
+        ${PROJECT_SOURCE_DIR}/include/memory/chunk_header.h)
 
 add_custom_command(
         TARGET ${MALLOC_LIB_TARGET}

@@ -1,7 +1,9 @@
 #ifndef CHUNK_H
 #define CHUNK_H
 
-#include "malloc.h"
+#include "memory/chunk_header.h"
+
+#define ALIGNMENT 8
 
 void chunk_dll_insert_after(chunk_header_t *pos, chunk_header_t *value);
 void chunk_dll_insert_before(chunk_header_t *pos, chunk_header_t *value);
