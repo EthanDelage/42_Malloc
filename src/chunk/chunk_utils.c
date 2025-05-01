@@ -1,4 +1,5 @@
-#include "chunk.h"
+#include "chunk/chunk_utils.h"
+#include "chunk/chunk_dll.h"
 
 /**
  * @brief Splits a chunk into two if there is enough space for a second valid
