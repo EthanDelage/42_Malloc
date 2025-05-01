@@ -25,7 +25,8 @@ static void test_chunk_split_success(void) {
 
     TEST_ASSERT_NOT_NULL(second);
     TEST_ASSERT_EQUAL(request_size, chunk->size);
-    TEST_ASSERT_EQUAL(original_size - sizeof(chunk_header_t) - request_size, second->size);
+    TEST_ASSERT_EQUAL(original_size - sizeof(chunk_header_t) - request_size,
+                      second->size);
     TEST_ASSERT_EQUAL_PTR(chunk->next, second);
     TEST_ASSERT_EQUAL_PTR(second->previous, chunk);
 

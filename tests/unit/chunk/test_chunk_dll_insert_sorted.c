@@ -57,7 +57,7 @@ static void test_insert_sorted_in_middle(void) {
     chunk_header_t *chunk3 = make_chunk(64);
 
     // Sort manually
-    chunk_header_t *chunks[] = { chunk1, chunk2, chunk3 };
+    chunk_header_t *chunks[] = {chunk1, chunk2, chunk3};
     for (int i = 0; i < 3; i++) {
         for (int j = i + 1; j < 3; j++) {
             if (chunks[j] < chunks[i]) {
