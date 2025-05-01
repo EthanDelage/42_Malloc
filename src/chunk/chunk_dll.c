@@ -46,6 +46,35 @@ void chunk_dll_insert_before(chunk_header_t *pos, chunk_header_t *value) {
 }
 
 /**
+ * @brief Inserts a chunk into a doubly linked list sorted by memory address.
+ *
+ * This function inserts the given chunk into the doubly linked list pointed to
+ * by `head`, maintaining the list sorted in ascending order of chunk memory
+ * addresses. The sort order is based on the address of each chunk in memory,
+ * ensuring predictable traversal and efficient coalescing in memory management.
+ *
+ * @param head Pointer to the head pointer of the doubly linked list.
+ * @param new_chunk Pointer to the chunk to insert into the list.
+ */
+void chunk_dll_insert_sorted(chunk_header_t **head, chunk_header_t *new_chunk) {
+    chunk_header_t *current = *head;
+
+    if (current == NULL) {
+        *head = new_chunk;
+        return;
+    }
+    if (current > new_chunk) {
+        chunk_dll_insert_before(current, new_chunk);
+        *head = new_chunk;
+        return;
+    }
+    while (current->next != NULL && current->next < new_chunk) {
+        current = current->next;
+    }
+    chunk_dll_insert_after(current, new_chunk);
+}
+
+/**
  * @brief Removes a chunk from a doubly linked list of memory chunks.
  *
  * This function unlinks the given chunk from the doubly linked list it belongs

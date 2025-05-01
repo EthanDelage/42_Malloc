@@ -5,6 +5,7 @@
 
 void chunk_dll_insert_after(chunk_header_t *pos, chunk_header_t *value);
 void chunk_dll_insert_before(chunk_header_t *pos, chunk_header_t *value);
+void chunk_dll_insert_sorted(chunk_header_t **head, chunk_header_t *new_chunk);
 void chunk_dll_remove(chunk_header_t *pos);
 
 chunk_header_t *chunk_split(chunk_header_t *chunk, size_t size);
