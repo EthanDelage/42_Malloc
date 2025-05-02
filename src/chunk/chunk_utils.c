@@ -73,3 +73,30 @@ uint8_t is_adjacent_chunk(const chunk_header_t *first,
     return (char *)first + sizeof(chunk_header_t) + first->size ==
            (char *)second;
 }
+
+/**
+ * @brief Returns a pointer to the usable memory portion of a chunk.
+ *
+ * This function computes the memory address immediately following the chunk
+ * header, which corresponds to the start of the memory block available to the
+ * user.
+ *
+ * @param chunk Pointer to the chunk header.
+ * @return Pointer to the usable memory block managed by the chunk.
+ */
+void *get_chunk_data(const chunk_header_t *chunk) {
+    return (uint8_t *)chunk + sizeof(chunk_header_t);
+}
+
+/**
+ * @brief Retrieves the chunk header from a user-accessible memory pointer.
+ *
+ * This function computes the address of the `chunk_header_t` by subtracting the
+ * size of the header from the given user pointer.
+ *
+ * @param ptr Pointer to the user-accessible memory block.
+ * @return Pointer to the corresponding chunk header.
+ */
+chunk_header_t *get_chunk_from_data(const void *ptr) {
+    return (chunk_header_t *)((uint8_t *)ptr - sizeof(chunk_header_t));
+}
