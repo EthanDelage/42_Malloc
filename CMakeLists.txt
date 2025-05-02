@@ -20,6 +20,8 @@ message(STATUS "Detected platform: ${HOST_TYPE}")
 set(MALLOC_LIB_TARGET "ft_malloc_${HOST_TYPE}")
 set(MALLOC_LIB_LINK_TARGET "ft_malloc")
 
+add_compile_options(-Wall -Wextra -Werror)
+
 add_subdirectory(src)
 
 option(BUILD_TESTS "Build the test suit" ON)
