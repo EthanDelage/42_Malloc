@@ -48,3 +48,33 @@ int find_chunk_in_list(chunk_header_t *chunk_head,
     }
     return 0;
 }
+
+/**
+ * @brief Searches for a free chunk within the list of pages that can hold at
+ * least the requested size.
+ *
+ * This function iterates through all the pages starting from the given `head`
+ * and searches the free list of each page for a chunk whose size is equal to or
+ * larger than the requested `size`. If such a chunk is found, it is returned.
+ *
+ * @param head Pointer to the first page in the list to search through.
+ * @param size The minimum size in bytes that the free chunk must be able to
+ * accommodate.
+ * @return Pointer to a suitable free chunk, or NULL if no suitable chunk is
+ * found.
+ */
+chunk_header_t *find_free_chunk(page_header_t *head, size_t size) {
+    chunk_header_t *free_chunk;
+
+    while (head != NULL) {
+        free_chunk = head->free_list;
+        while (free_chunk != NULL) {
+            if (free_chunk->size >= size) {
+                return free_chunk;
+            }
+            free_chunk = free_chunk->next;
+        }
+        head = head->next;
+    }
+    return NULL;
+}
