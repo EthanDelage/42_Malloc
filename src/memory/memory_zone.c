@@ -15,7 +15,7 @@ size_t get_zone_size(size_t alloc_max_size) {
     size_t zone_min_size =
         sizeof(page_header_t) +
         (sizeof(chunk_header_t) + alloc_max_size) * ZONE_CHUNK_MIN_COUNT;
-    return page_align(zone_min_size);
+    return align_page(zone_min_size);
 }
 
 zone_type_t get_zone_type(size_t size) {

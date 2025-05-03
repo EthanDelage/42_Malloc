@@ -1,3 +1,4 @@
+#include "chunk/chunk_utils.h"
 #include "memory/memory_utils.h"
 
 #include <sys/mman.h>
@@ -11,9 +12,13 @@
  * @param size The original size in bytes.
  * @return The smallest multiple of the system page size that is ≥ size.
  */
-size_t page_align(size_t size) {
+size_t align_page(size_t size) {
     size_t page = sysconf(_SC_PAGESIZE);
-    return ((size + page - 1) / page) * page;
+    return (size + page - 1) & ~(page - 1);
+}
+
+size_t align_size(size_t size) {
+    return (size + ALIGNMENT - 1) & ~(ALIGNMENT - 1);
 }
 
 /**

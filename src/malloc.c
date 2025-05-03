@@ -30,7 +30,7 @@ static void *allocate_large_zone(size_t size) {
     void *map_ptr;
     chunk_header_t *chunk_header;
 
-    size = page_align(sizeof(chunk_header_t) + size);
+    size = align_page(sizeof(chunk_header_t) + size);
     map_ptr = map_heap_region(size);
     chunk_header = (chunk_header_t *)map_ptr;
     chunk_header->size = size - sizeof(chunk_header_t);
