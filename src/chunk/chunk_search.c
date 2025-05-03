@@ -17,7 +17,7 @@ int find_chunk_in_pages(page_header_t *page_head,
 
     while (page_head != NULL) {
         page_end = (uint8_t *)page_head + page_head->page_size;
-        if ((void *)target_chunk > (void*)page_head &&
+        if ((void *)target_chunk > (void *)page_head &&
             (void *)target_chunk < page_end &&
             (find_chunk_in_list(page_head->alloc_list, target_chunk) == 1 ||
              find_chunk_in_list(page_head->free_list, target_chunk) == 1)) {
