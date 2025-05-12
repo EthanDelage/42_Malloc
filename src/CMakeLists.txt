@@ -7,6 +7,7 @@ add_library(${MALLOC_LIB_TARGET} SHARED
         chunk/chunk_utils.c
         memory/memory_utils.c
         memory/memory_zone.c
+        memory/page_header.c
         ${PROJECT_SOURCE_DIR}/include/malloc.h
         ${PROJECT_SOURCE_DIR}/include/memory/memory_utils.h
         ${PROJECT_SOURCE_DIR}/include/memory/memory_zone.h
