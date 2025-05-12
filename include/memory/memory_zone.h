@@ -15,7 +15,7 @@ enum zone_type_e {
     LARGE,
 };
 
-size_t get_zone_size(size_t alloc_max_size);
+size_t get_zone_size(zone_type_t type);
 zone_type_t get_zone_type(size_t size);
 
 #endif // MEMORY_ZONE_H
