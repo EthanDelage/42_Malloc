@@ -16,10 +16,12 @@ void page_list_insert(page_header_t **head, page_header_t *new_page) {
 }
 
 /**
- * @brief Searches a list of pages to find one with a free chunk large enough to satisfy the given size.
+ * @brief Searches a list of pages to find one with a free chunk large enough to
+ * satisfy the given size.
  *
- * This function iterates through the given list of pages and returns the first page
- * containing a free chunk that is large enough to fulfill the requested `min_size`.
+ * This function iterates through the given list of pages and returns the first
+ * page containing a free chunk that is large enough to fulfill the requested
+ * `min_size`.
  *
  * @param head Pointer to the head of the list of pages.
  * @param min_size The minimum size in bytes required for the allocation.

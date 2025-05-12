@@ -50,7 +50,8 @@ int find_chunk_in_list(chunk_header_t *chunk_head,
 }
 
 /**
- * @brief Finds a free chunk within a page that satisfies the minimum size requirement.
+ * @brief Finds a free chunk within a page that satisfies the minimum size
+ * requirement.
  *
  * This function searches the `free_list` of the given page for a chunk that is
  * large enough to satisfy the `min_size` requirement.
