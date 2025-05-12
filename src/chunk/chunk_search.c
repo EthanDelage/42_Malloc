@@ -16,7 +16,7 @@ int find_chunk_in_pages(page_header_t *page_head,
     void *page_end;
 
     while (page_head != NULL) {
-        page_end = (uint8_t *)page_head + page_head->page_size;
+        page_end = (uint8_t *)page_head + page_head->size;
         if ((void *)target_chunk > (void *)page_head &&
             (void *)target_chunk < page_end &&
             (find_chunk_in_list(page_head->alloc_list, target_chunk) == 1 ||
@@ -50,31 +50,27 @@ int find_chunk_in_list(chunk_header_t *chunk_head,
 }
 
 /**
- * @brief Searches for a free chunk within the list of pages that can hold at
- * least the requested size.
+ * @brief Finds a free chunk within a page that satisfies the minimum size requirement.
  *
- * This function iterates through all the pages starting from the given `head`
- * and searches the free list of each page for a chunk whose size is equal to or
- * larger than the requested `size`. If such a chunk is found, it is returned.
+ * This function searches the `free_list` of the given page for a chunk that is
+ * large enough to satisfy the `min_size` requirement.
  *
- * @param head Pointer to the first page in the list to search through.
- * @param size The minimum size in bytes that the free chunk must be able to
- * accommodate.
- * @return Pointer to a suitable free chunk, or NULL if no suitable chunk is
- * found.
+ * @param page Pointer to the page in which to search for a suitable chunk.
+ * @param min_size The minimum size in bytes required for the chunk.
+ * @return Pointer to a suitable chunk, or NULL if no such chunk exists.
  */
-chunk_header_t *find_free_chunk(page_header_t *head, size_t size) {
+chunk_header_t *find_free_chunk(page_header_t *page, size_t min_size) {
     chunk_header_t *free_chunk;
 
-    while (head != NULL) {
-        free_chunk = head->free_list;
-        while (free_chunk != NULL) {
-            if (free_chunk->size >= size) {
-                return free_chunk;
-            }
-            free_chunk = free_chunk->next;
+    if (page == NULL) {
+        return NULL;
+    }
+    free_chunk = page->free_list;
+    while (free_chunk != NULL) {
+        if (free_chunk->size >= min_size) {
+            return free_chunk;
         }
-        head = head->next;
+        free_chunk = free_chunk->next;
     }
     return NULL;
 }

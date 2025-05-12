@@ -8,7 +8,7 @@ typedef struct page_header_s page_header_t;
 struct page_header_s {
     chunk_header_t *alloc_list;
     chunk_header_t *free_list;
-    size_t page_size;
+    size_t size;
     page_header_t *next;
 };
 
