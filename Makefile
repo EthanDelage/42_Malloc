@@ -36,9 +36,11 @@ SRC			=		malloc.c \
 					free.c \
 					realloc.c \
 					chunk/chunk_dll.c \
+					chunk/chunk_search.c \
 					chunk/chunk_utils.c \
 					memory/memory_utils.c \
 					memory/memory_zone.c \
+					memory/page_header.c \
 
 OBJ			=		$(addprefix $(BUILD_DIR), $(SRC:.c=.o))
 
@@ -54,7 +56,7 @@ TEST_DEPS	=		$(TEST_OBJ:.o=.d)
 #	FLAGS
 #######################
 
-CFLAGS		=		-Wall -Werror -Wextra
+CFLAGS		=		-Wall -Werror -Wextra -fvisibility=hidden
 
 IFLAGS		=		-I $(INC_DIR)
 

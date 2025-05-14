@@ -28,3 +28,4 @@ add_custom_command(
 )
 
 target_include_directories(${MALLOC_LIB_TARGET} PUBLIC ${PROJECT_SOURCE_DIR}/include)
+target_compile_options(${MALLOC_LIB_TARGET} PRIVATE -fvisibility=hidden)
