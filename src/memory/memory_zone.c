@@ -1,4 +1,7 @@
 #include "memory/memory_zone.h"
+
+#include "chunk/chunk_search.h"
+#include "memory/malloc_data.h"
 #include "memory/memory_utils.h"
 #include "memory/page_header.h"
 
@@ -36,4 +39,23 @@ zone_type_t get_zone_type(size_t size) {
         return SMALL;
     }
     return LARGE;
+}
+
+/**
+ * @brief Determines the zone type (TINY, SMALL, or LARGE) for a given chunk.
+ *
+ * If the chunk is NULL or not found in any known zone, returns `ZONE_INVALID`.
+ *
+ * @param chunk Pointer to the chunk to inspect.
+ * @return The zone type (TINY, SMALL, LARGE) or ZONE_INVALID if unknown.
+ */
+zone_type_t get_chunk_zone_type(chunk_header_t *chunk) {
+    zone_type_t type = get_zone_type(chunk->size);
+
+    if ((type == TINY && !is_chunk_in_pages(malloc_data.tiny, chunk)) ||
+        (type == SMALL && !is_chunk_in_pages(malloc_data.small, chunk)) ||
+        (type == LARGE && !is_chunk_in_list(malloc_data.large, chunk))) {
+        return INVALID;
+    }
+    return type;
 }
