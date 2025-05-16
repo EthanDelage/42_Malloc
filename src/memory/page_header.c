@@ -37,6 +37,30 @@ page_header_t *find_available_page(page_header_t *head, size_t min_size) {
     return NULL;
 }
 
+/**
+ * @brief Finds the page that contains the specified chunk.
+ *
+ * Iterates through the list of pages starting from `page_head` and checks
+ * whether the given chunk belongs to any of the pages.
+ *
+ * @param chunk Pointer to the chunk whose containing page is being searched.
+ * @param page_head Pointer to the first page in the list.
+ * @return Pointer to the page that contains the chunk, or NULL if not found.
+ */
+page_header_t *find_chunk_page(chunk_header_t *chunk,
+                               page_header_t *page_head) {
+    void *page_end;
+
+    while (page_head != NULL) {
+        page_end = (uint8_t *)page_head + page_head->size;
+        if ((void *)chunk > (void *)page_head && (void *)chunk < page_end) {
+            return page_head;
+        }
+        page_head = page_head->next;
+    }
+    return NULL;
+}
+
 void update_max_free_chunk_size(page_header_t *page) {
     chunk_header_t *current = page->free_list;
     size_t max_free_chunk_size = 0;
