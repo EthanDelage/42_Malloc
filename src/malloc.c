@@ -76,6 +76,7 @@ static page_header_t *allocate_page(zone_type_t zone_type) {
     page->free_list = chunk;
     page->size = zone_size;
     page->next = NULL;
+    page->previous = NULL;
     chunk->size = zone_size - (sizeof(page_header_t) + sizeof(chunk_header_t));
     page->max_free_chunk_size = chunk->size;
     chunk->in_use = 0;

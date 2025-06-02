@@ -13,6 +13,35 @@ void page_list_insert(page_header_t **head, page_header_t *new_page) {
         current = current->next;
     }
     current->next = new_page;
+    new_page->previous = current;
+}
+
+/**
+ * @brief Removes a page from a singly or doubly linked list of pages.
+ *
+ * This function unlinks the given page from the list it belongs to by updating
+ * the adjacent page links appropriately. After removal, the `next` pointer of
+ * the removed page is set to NULL.
+ *
+ * Note: This function assumes that the page list is managed elsewhere (e.g.,
+ * via a global or external head pointer) and does not update the head of the
+ * list. The caller must ensure the head is updated if `pos` is the first node.
+ *
+ * @param pos Pointer to the page to remove. Must be part of a valid linked
+ * list.
+ */
+void page_list_remove(page_header_t *pos) {
+    page_header_t *next = pos->next;
+    page_header_t *previous = pos->previous;
+
+    if (next != NULL) {
+        next->previous = previous;
+        pos->next = NULL;
+    }
+    if (previous != NULL) {
+        previous->next = next;
+        pos->previous = NULL;
+    }
 }
 
 /**

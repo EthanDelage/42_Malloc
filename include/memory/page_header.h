@@ -11,9 +11,11 @@ struct page_header_s {
     size_t max_free_chunk_size;
     size_t size;
     page_header_t *next;
+    page_header_t *previous;
 };
 
 void page_list_insert(page_header_t **head, page_header_t *new_page);
+void page_list_remove(page_header_t *pos);
 page_header_t *find_available_page(page_header_t *head, size_t min_size);
 page_header_t *find_chunk_page(chunk_header_t *chunk, page_header_t *page_head);
 void update_max_free_chunk_size(page_header_t *page);
