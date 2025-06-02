@@ -59,6 +59,32 @@ void chunk_coalesce(chunk_header_t *chunk) {
 }
 
 /**
+ * @brief Coalesces a chunk with adjacent free chunks (both previous and next)
+ * if contiguous in memory.
+ *
+ * This function checks whether the previous and/or next chunks are free and
+ * directly adjacent to the given chunk. If so, it merges them into a single
+ * larger chunk. It uses `chunk_coalesce()` internally for merging with the next
+ * chunk.
+ *
+ * @param chunk Pointer to the chunk to coalesce.
+ * @return Pointer to the resulting coalesced chunk (which may differ from the
+ * input chunk).
+ */
+chunk_header_t *chunk_coalesce_surrounding(chunk_header_t *chunk) {
+    chunk_header_t *res_chunk = chunk;
+
+    if (chunk->next && is_adjacent_chunk(chunk, chunk->next) != 0) {
+        chunk_coalesce(chunk);
+    }
+    if (chunk->previous && is_adjacent_chunk(chunk->previous, chunk) != 0) {
+        res_chunk = chunk->previous;
+        chunk_coalesce(chunk->previous);
+    }
+    return res_chunk;
+}
+
+/**
  * @brief Checks whether two chunks are adjacent in memory.
  *
  * This function determines if the second chunk directly follows the first

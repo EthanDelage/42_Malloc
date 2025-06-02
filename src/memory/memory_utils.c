@@ -41,3 +41,21 @@ void *map_heap_region(size_t size) {
     return mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_ANONYMOUS | MAP_PRIVATE,
                 -1, 0);
 }
+
+/**
+ * @brief Unmaps a previously mapped region of memory.
+ *
+ * This function uses the `munmap` system call to unmap a region of memory that
+ * was previously mapped.
+ *
+ * The size must match the value used when the region was mapped. After the
+ * call, accessing the memory region is undefined behavior.
+ *
+ * @param addr A pointer to the beginning of the memory region to unmap.
+ * @param size The size of the memory region to unmap. This must be the same
+ * size that was passed to `mmap`, and must be a multiple of
+ * `sysconf(_SC_PAGESIZE)`.
+ * @return 0 on success, or -1 if the unmapping fails (errno is set
+ * appropriately).
+ */
+int unmap_heap_region(void *addr, size_t size) { return munmap(addr, size); }
