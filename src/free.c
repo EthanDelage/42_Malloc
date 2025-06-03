@@ -42,8 +42,7 @@ static void free_normal_zone(chunk_header_t *chunk, page_header_t **head) {
         if (chunk_page->previous == NULL) {
             *head = chunk_page->next;
         }
-        if (unmap_heap_region(chunk_page,
-                              sizeof(page_header_t) + chunk_page->size) == -1) {
+        if (unmap_heap_region(chunk_page, chunk_page->size) == -1) {
             // TODO: handle error
         }
     } else {
