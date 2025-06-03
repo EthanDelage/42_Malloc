@@ -35,3 +35,24 @@ set_directory_properties(PROPERTIES
 
 target_include_directories(${MALLOC_LIB_TARGET} PUBLIC ${PROJECT_SOURCE_DIR}/include)
 #target_compile_options(${MALLOC_LIB_TARGET} PRIVATE -fvisibility=hidden)
+
+################
+# libft setup
+################
+
+include(ExternalProject)
+ExternalProject_Add(libft
+        SOURCE_DIR ${PROJECT_SOURCE_DIR}/printf
+        CONFIGURE_COMMAND ""
+        BUILD_COMMAND make
+        BUILD_IN_SOURCE 1
+        INSTALL_COMMAND ""
+        BUILD_ALWAYS 1
+)
+
+add_dependencies(${MALLOC_LIB_TARGET} libft)
+target_link_libraries(${MALLOC_LIB_TARGET} ${PROJECT_SOURCE_DIR}/printf/libftprintf.a)
+target_include_directories(${MALLOC_LIB_TARGET} PUBLIC
+        ${PROJECT_SOURCE_DIR}/printf/includes
+        ${PROJECT_SOURCE_DIR}/printf/libft
+)
