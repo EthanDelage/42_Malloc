@@ -15,7 +15,11 @@ execute_process(
         OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 
-set(HOST_TYPE "${MACHINE_ARCH}_${SYSTEM_NAME}")
+if(DEFINED ENV{HOSTTYPE})
+    set(HOST_TYPE "$ENV{HOSTTYPE}")
+else()
+    set(HOST_TYPE "${MACHINE_ARCH}_${SYSTEM_NAME}")
+endif()
 message(STATUS "Detected platform: ${HOST_TYPE}")
 set(MALLOC_LIB_TARGET "ft_malloc_${HOST_TYPE}")
 set(MALLOC_LIB_LINK_TARGET "libft_malloc${CMAKE_SHARED_LIBRARY_SUFFIX}")
