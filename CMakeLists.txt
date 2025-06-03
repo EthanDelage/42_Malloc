@@ -18,13 +18,13 @@ execute_process(
 set(HOST_TYPE "${MACHINE_ARCH}_${SYSTEM_NAME}")
 message(STATUS "Detected platform: ${HOST_TYPE}")
 set(MALLOC_LIB_TARGET "ft_malloc_${HOST_TYPE}")
-set(MALLOC_LIB_LINK_TARGET "ft_malloc")
+set(MALLOC_LIB_LINK_TARGET "libft_malloc${CMAKE_SHARED_LIBRARY_SUFFIX}")
 
 add_compile_options(-Wall -Wextra -Werror)
 
 add_subdirectory(src)
 
-option(BUILD_TESTS "Build the test suit" ON)
+option(BUILD_TESTS "Build the test suit" OFF)
 if (BUILD_TESTS)
     enable_testing()
     add_subdirectory(tests/unity)
