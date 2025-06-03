@@ -35,6 +35,7 @@ BUILD_DIR	=		.build/$(HOST_TYPE)/
 SRC			=		malloc.c \
 					free.c \
 					realloc.c \
+					print.c \
 					chunk/chunk_dll.c \
 					chunk/chunk_search.c \
 					chunk/chunk_utils.c \
