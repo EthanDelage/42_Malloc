@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 #include "chunk/chunk_dll.h"
 #include "chunk/chunk_search.h"
 #include "chunk/chunk_utils.h"
@@ -7,6 +5,7 @@
 #include "memory/malloc_data.h"
 #include "memory/memory_zone.h"
 #include "memory/page_header.h"
+#include "utils/printf.h"
 
 #include <string.h>
 

@@ -6,8 +6,7 @@
 #include "memory/malloc_data.h"
 #include "memory/memory_utils.h"
 #include "memory/memory_zone.h"
-
-#include <stdio.h>
+#include "utils/printf.h"
 
 malloc_data_t malloc_data = {0};
 

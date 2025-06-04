@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 #include "chunk/chunk_dll.h"
 #include "chunk/chunk_utils.h"
 #include "malloc.h"
@@ -7,6 +5,7 @@
 #include "memory/malloc_data.h"
 #include "memory/memory_utils.h"
 #include "memory/memory_zone.h"
+#include "utils/printf.h"
 
 static void free_normal_zone(chunk_header_t *chunk, page_header_t **head);
 static void free_large_zone(chunk_header_t *chunk);
