@@ -132,7 +132,8 @@ typedef struct {
 
 void _putchar(char character)
 {
-    write(1, &character, 1);
+    // write(1, &character, 1);
+    (void) character;
 }
 
 // internal buffer output

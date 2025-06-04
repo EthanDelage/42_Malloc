@@ -20,7 +20,7 @@ add_library(${MALLOC_LIB_TARGET} SHARED
         ${PROJECT_SOURCE_DIR}/include/chunk/chunk_dll.h
         ${PROJECT_SOURCE_DIR}/include/chunk/chunk_utils.h
         ${PROJECT_SOURCE_DIR}/include/chunk/chunk_search.h
-        ${PROJECT_SOURCE_DIR}/include/utils/printf.h)
+        ../include/utils/printf.h)
 
 add_custom_command(
         TARGET ${MALLOC_LIB_TARGET}
@@ -38,3 +38,5 @@ set_directory_properties(PROPERTIES
 
 target_include_directories(${MALLOC_LIB_TARGET} PUBLIC ${PROJECT_SOURCE_DIR}/include)
 #target_compile_options(${MALLOC_LIB_TARGET} PRIVATE -fvisibility=hidden)
+
+set_source_files_properties(realloc.c PROPERTIES COMPILE_FLAGS "-Wno-maybe-uninitialized")
