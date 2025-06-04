@@ -6,8 +6,10 @@
 #include "memory/malloc_data.h"
 #include "memory/memory_utils.h"
 #include "memory/memory_zone.h"
+#include "printf.h"
 
 #include <stdio.h>
+#include <strings.h>
 
 malloc_data_t malloc_data = {0};
 
@@ -17,16 +19,27 @@ static void *allocate_large_zone(size_t size);
 static page_header_t *allocate_page(zone_type_t zone_type);
 
 void *malloc(size_t size) {
+    printf_("malloc\n");
     zone_type_t type = get_zone_type(size);
+    void *ptr = NULL;
 
-    printf("malloc\n");
     if (type == TINY) {
-        return allocate_normal_zone(size, type, &malloc_data.tiny);
+        ptr = allocate_normal_zone(size, type, &malloc_data.tiny);
+    } else if (type == SMALL) {
+        ptr = allocate_normal_zone(size, type, &malloc_data.small);
+    } else if (type == LARGE) {
+	ptr = allocate_large_zone(size);
     }
-    if (type == SMALL) {
-        return allocate_normal_zone(size, type, &malloc_data.small);
-    }
-    return allocate_large_zone(size);
+    printf_("%zu -> %p\n", size, ptr);
+    return ptr;
+}
+
+void *calloc(size_t nmemb, size_t size) {
+    printf_("calloc\n");
+    void *ptr = malloc(nmemb * size);
+
+    bzero(ptr, nmemb * size);
+    return ptr;
 }
 
 static void *allocate_normal_zone(size_t size, zone_type_t zone_type,

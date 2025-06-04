@@ -3,6 +3,7 @@ add_library(${MALLOC_LIB_TARGET} SHARED
         free.c
         realloc.c
         print.c
+        printf.c
         chunk/chunk_dll.c
         chunk/chunk_search.c
         chunk/chunk_utils.c
@@ -17,7 +18,8 @@ add_library(${MALLOC_LIB_TARGET} SHARED
         ${PROJECT_SOURCE_DIR}/include/memory/chunk_header.h
         ${PROJECT_SOURCE_DIR}/include/chunk/chunk_dll.h
         ${PROJECT_SOURCE_DIR}/include/chunk/chunk_utils.h
-        ${PROJECT_SOURCE_DIR}/include/chunk/chunk_search.h)
+        ${PROJECT_SOURCE_DIR}/include/chunk/chunk_search.h
+        ${PROJECT_SOURCE_DIR}/include/printf.h)
 
 add_custom_command(
         TARGET ${MALLOC_LIB_TARGET}
@@ -40,19 +42,19 @@ target_include_directories(${MALLOC_LIB_TARGET} PUBLIC ${PROJECT_SOURCE_DIR}/inc
 # libft setup
 ################
 
-include(ExternalProject)
-ExternalProject_Add(libft
-        SOURCE_DIR ${PROJECT_SOURCE_DIR}/printf
-        CONFIGURE_COMMAND ""
-        BUILD_COMMAND make
-        BUILD_IN_SOURCE 1
-        INSTALL_COMMAND ""
-        BUILD_ALWAYS 1
-)
-
-add_dependencies(${MALLOC_LIB_TARGET} libft)
-target_link_libraries(${MALLOC_LIB_TARGET} ${PROJECT_SOURCE_DIR}/printf/libftprintf.a)
-target_include_directories(${MALLOC_LIB_TARGET} PUBLIC
-        ${PROJECT_SOURCE_DIR}/printf/includes
-        ${PROJECT_SOURCE_DIR}/printf/libft
-)
+#include(ExternalProject)
+#ExternalProject_Add(libft
+#        SOURCE_DIR ${PROJECT_SOURCE_DIR}/printf
+#        CONFIGURE_COMMAND ""
+#        BUILD_COMMAND make
+#        BUILD_IN_SOURCE 1
+#        INSTALL_COMMAND ""
+#        BUILD_ALWAYS 1
+#)
+#
+#add_dependencies(${MALLOC_LIB_TARGET} libft)
+#target_link_libraries(${MALLOC_LIB_TARGET} ${PROJECT_SOURCE_DIR}/printf/libftprintf.a)
+#target_include_directories(${MALLOC_LIB_TARGET} PUBLIC
+#        ${PROJECT_SOURCE_DIR}/printf/includes
+#        ${PROJECT_SOURCE_DIR}/printf/libft
+#)

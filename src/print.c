@@ -1,6 +1,7 @@
 #include "chunk/chunk_utils.h"
 #include "memory/malloc_data.h"
 #include "memory/page_header.h"
+#include "printf.h"
 
 #include <stdio.h>
 
@@ -16,7 +17,7 @@ void show_alloc_mem(void) {
     print_normal_zone(malloc_data.tiny, "TINY");
     print_normal_zone(malloc_data.small, "SMALL");
     print_large_zone();
-    printf("Total: %zu\n", get_allocated_size());
+    printf_("Total: %zu\n", get_allocated_size());
 }
 
 static void print_normal_zone(page_header_t *head, const char *zone_str) {
@@ -30,13 +31,13 @@ static void print_normal_zone(page_header_t *head, const char *zone_str) {
 }
 
 static void print_large_zone() {
-    printf("LARGE:\n");
+    printf_("LARGE:\n");
     print_chunk_dll(malloc_data.large);
 }
 
 static void print_page(page_header_t *page, const char *zone_str,
                        size_t index) {
-    printf("%s (%zu): %p\n", zone_str, index, page);
+    printf_("%s (%zu): %p\n", zone_str, index, page);
     print_chunk_dll(page->alloc_list);
 }
 
@@ -45,7 +46,7 @@ static void print_chunk_dll(chunk_header_t *chunk) {
 
     while (chunk != NULL) {
         ptr = get_chunk_data(chunk);
-        printf("%p - %p: %zu bytes\n", ptr, ptr + chunk->size, chunk->size);
+        printf_("%p - %p: %zu bytes\n", ptr, ptr + chunk->size, chunk->size);
         chunk = chunk->next;
     }
 }

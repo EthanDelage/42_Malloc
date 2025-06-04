@@ -7,6 +7,7 @@
 #include "memory/malloc_data.h"
 #include "memory/memory_zone.h"
 #include "memory/page_header.h"
+#include "printf.h"
 
 #include <string.h>
 
@@ -24,10 +25,13 @@ static chunk_header_t *extend_chunk_allocation(chunk_header_t *chunk,
                                                page_header_t *page_head);
 
 void *realloc(void *ptr, size_t size) {
+    printf_("realloc: %p\n", ptr);
+    if (ptr == NULL) {
+        return malloc(size);
+    }
     chunk_header_t *chunk = get_chunk_from_data(ptr);
     zone_type_t type = get_chunk_zone_type(chunk);
 
-    printf("realloc\n");
     if (type == INVALID) {
         // TODO: handle error (invalid ptr)
         return NULL;

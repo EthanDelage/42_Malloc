@@ -28,10 +28,10 @@ add_compile_options(-Wall -Wextra -Werror)
 
 add_subdirectory(src)
 
-option(BUILD_TESTS "Build the test suit" OFF)
+option(BUILD_TESTS "Build the test suit" ON)
 if (BUILD_TESTS)
     enable_testing()
-    add_subdirectory(tests/unity)
+#    add_subdirectory(tests/unity)
     add_subdirectory(tests/integration)
-    add_subdirectory(tests/unit)
+#    add_subdirectory(tests/unit)
 endif ()

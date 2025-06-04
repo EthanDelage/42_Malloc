@@ -7,15 +7,19 @@
 #include "memory/malloc_data.h"
 #include "memory/memory_utils.h"
 #include "memory/memory_zone.h"
+#include "printf.h"
 
 static void free_normal_zone(chunk_header_t *chunk, page_header_t **head);
 static void free_large_zone(chunk_header_t *chunk);
 
 void free(void *ptr) {
+    printf_("free: %p\n", ptr);
+    if (ptr == NULL) {
+        return;
+    }
     chunk_header_t *chunk = get_chunk_from_data(ptr);
     zone_type_t type = get_chunk_zone_type(chunk);
 
-    printf("free\n");
     if (type == INVALID || chunk->in_use == 0) {
         // TODO: handle error (invalid ptr)
         return;
@@ -38,7 +42,7 @@ static void free_normal_zone(chunk_header_t *chunk, page_header_t **head) {
     chunk_dll_transfer_sorted(&chunk_page->free_list, chunk);
     chunk->in_use = 0;
     chunk_coalesce_surrounding(chunk);
-    if (chunk_page->alloc_list == NULL) {
+    if (chunk_page->alloc_list == NULL && (chunk_page->previous != NULL || chunk_page->next != NULL)) {
         if (chunk_page->previous == NULL) {
             *head = chunk_page->next;
         }
