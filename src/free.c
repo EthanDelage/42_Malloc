@@ -38,7 +38,8 @@ static void free_normal_zone(chunk_header_t *chunk, page_header_t **head) {
     chunk_dll_transfer_sorted(&chunk_page->free_list, chunk);
     chunk->in_use = 0;
     chunk_coalesce_surrounding(chunk);
-    if (chunk_page->alloc_list == NULL) {
+    if (chunk_page->alloc_list == NULL &&
+        (chunk_page->previous != NULL || chunk_page->next != NULL)) {
         if (chunk_page->previous == NULL) {
             *head = chunk_page->next;
         }
