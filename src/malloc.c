@@ -16,9 +16,9 @@ static void *allocate_large_zone(size_t size);
 static page_header_t *allocate_page(zone_type_t zone_type);
 
 void *malloc(size_t size) {
+    printf("malloc: %zu\n", size);
     zone_type_t type = get_zone_type(size);
 
-    printf("malloc\n");
     if (type == TINY) {
         return allocate_normal_zone(size, type, &malloc_data.tiny);
     }
