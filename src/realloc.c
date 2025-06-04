@@ -23,6 +23,9 @@ static chunk_header_t *extend_chunk_allocation(chunk_header_t *chunk,
                                                page_header_t *page_head);
 
 void *realloc(void *ptr, size_t size) {
+    if (ptr == NULL) {
+        return malloc(size);
+    }
     chunk_header_t *chunk = get_chunk_from_data(ptr);
     zone_type_t type = get_chunk_zone_type(chunk);
 

@@ -11,6 +11,9 @@ static void free_normal_zone(chunk_header_t *chunk, page_header_t **head);
 static void free_large_zone(chunk_header_t *chunk);
 
 void free(void *ptr) {
+    if (ptr == NULL) {
+        return;
+    }
     chunk_header_t *chunk = get_chunk_from_data(ptr);
     zone_type_t type = get_chunk_zone_type(chunk);
 
