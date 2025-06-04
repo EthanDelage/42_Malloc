@@ -2,6 +2,7 @@ add_library(${MALLOC_LIB_TARGET} SHARED
         malloc.c
         free.c
         realloc.c
+        calloc.c
         print.c
         chunk/chunk_dll.c
         chunk/chunk_search.c
