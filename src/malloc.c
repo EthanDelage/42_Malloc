@@ -18,14 +18,18 @@ static page_header_t *allocate_page(zone_type_t zone_type);
 void *malloc(size_t size) {
     printf("malloc: %zu\n", size);
     zone_type_t type = get_zone_type(size);
+    void *ptr;
 
     if (type == TINY) {
-        return allocate_normal_zone(size, type, &malloc_data.tiny);
+        ptr = allocate_normal_zone(size, type, &malloc_data.tiny);
+    } else if (type == SMALL) {
+        ptr = allocate_normal_zone(size, type, &malloc_data.small);
+    } else {
+        ptr = allocate_large_zone(size);
     }
-    if (type == SMALL) {
-        return allocate_normal_zone(size, type, &malloc_data.small);
-    }
-    return allocate_large_zone(size);
+    printf("%p\n", ptr);
+    show_alloc_mem();
+    return ptr;
 }
 
 static void *allocate_normal_zone(size_t size, zone_type_t zone_type,
