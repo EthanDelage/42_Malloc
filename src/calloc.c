@@ -12,7 +12,7 @@ void *calloc(size_t nmemb, size_t size) {
         return NULL;
     }
     ptr = malloc(total_size);
-    if (ptr != NULL) {
+    if (ptr == NULL) {
         return NULL;
     }
     // TODO: remove libc function
