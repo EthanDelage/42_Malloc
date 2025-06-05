@@ -3,7 +3,7 @@
 
 #include "memory/chunk_header.h"
 
-#define ALIGNMENT sizeof(void *)
+#define ALIGNMENT 16
 
 chunk_header_t *chunk_split(chunk_header_t *chunk, size_t size);
 void chunk_coalesce(chunk_header_t *chunk);
