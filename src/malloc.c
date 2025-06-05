@@ -24,8 +24,8 @@ void *malloc(size_t size) {
         ptr = allocate_normal_zone(size, type, &malloc_data.tiny);
     } else if (type == SMALL) {
         ptr = allocate_normal_zone(size, type, &malloc_data.small);
-    } else if (type == LARGE) {
-        ptr= allocate_large_zone(size);
+    } else {
+        ptr = allocate_large_zone(size);
     }
     printf("%p\n", ptr);
     show_alloc_mem();
