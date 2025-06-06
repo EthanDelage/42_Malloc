@@ -10,6 +10,8 @@ add_library(${MALLOC_LIB_TARGET} SHARED
         memory/memory_utils.c
         memory/memory_zone.c
         memory/page_header.c
+        utils/memcpy.c
+        utils/memset.c
         utils/printf.c
         ${PROJECT_SOURCE_DIR}/include/malloc.h
         ${PROJECT_SOURCE_DIR}/include/memory/memory_utils.h
@@ -20,7 +22,8 @@ add_library(${MALLOC_LIB_TARGET} SHARED
         ${PROJECT_SOURCE_DIR}/include/chunk/chunk_dll.h
         ${PROJECT_SOURCE_DIR}/include/chunk/chunk_utils.h
         ${PROJECT_SOURCE_DIR}/include/chunk/chunk_search.h
-        ../include/utils/printf.h)
+        ${PROJECT_SOURCE_DIR}/include/utils/printf.h
+        ${PROJECT_SOURCE_DIR}/include/utils/libft.h)
 
 add_custom_command(
         TARGET ${MALLOC_LIB_TARGET}
