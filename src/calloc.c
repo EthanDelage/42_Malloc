@@ -1,7 +1,6 @@
 #include "malloc.h"
+#include "utils/libft.h"
 #include "utils/printf.h"
-
-#include <string.h>
 
 void *calloc(size_t nmemb, size_t size) {
     void *ptr;
@@ -15,7 +14,6 @@ void *calloc(size_t nmemb, size_t size) {
     if (ptr == NULL) {
         return NULL;
     }
-    // TODO: remove libc function
-    memset(ptr, 0, total_size);
+    ft_memset(ptr, 0, total_size);
     return ptr;
 }
