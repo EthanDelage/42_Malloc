@@ -5,9 +5,8 @@
 #include "memory/malloc_data.h"
 #include "memory/memory_zone.h"
 #include "memory/page_header.h"
+#include "utils/libft.h"
 #include "utils/printf.h"
-
-#include <string.h>
 
 static chunk_header_t *realloc_expand(chunk_header_t *chunk, size_t size,
                                       zone_type_t type);
@@ -101,8 +100,7 @@ static chunk_header_t *realloc_with_copy(chunk_header_t *chunk, size_t size) {
         return NULL;
     }
     new_chunk = get_chunk_from_data(new_ptr);
-    // TODO: remove libc function
-    memcpy(new_ptr, get_chunk_data(chunk), chunk->size);
+    ft_memcpy(new_ptr, get_chunk_data(chunk), chunk->size);
     free(chunk);
     return new_chunk;
 }
