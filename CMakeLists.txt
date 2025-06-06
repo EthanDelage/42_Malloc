@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.28)
+cmake_minimum_required(VERSION 3.22)
 project(malloc C)
 
 set(CMAKE_C_STANDARD 11)
@@ -28,7 +28,7 @@ add_compile_options(-Wall -Wextra -Werror)
 
 add_subdirectory(src)
 
-option(BUILD_TESTS "Build the test suit" OFF)
+option(BUILD_TESTS "Build the test suit" ON)
 if (BUILD_TESTS)
     enable_testing()
     add_subdirectory(tests/unity)

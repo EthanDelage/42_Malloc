@@ -6,14 +6,16 @@ void *calloc(size_t nmemb, size_t size) {
     void *ptr;
     size_t total_size = nmemb * size;
 
-    printf("calloc: %zu, %zu\n", nmemb, size);
+    printf("calloc(%zu, %zu);\n", nmemb, size);
     if (nmemb != 0 && total_size / nmemb != size) {
         return NULL;
     }
     ptr = malloc(total_size);
     if (ptr == NULL) {
+        printf("\n\n");
         return NULL;
     }
     ft_memset(ptr, 0, total_size);
+    printf("\n\n");
     return ptr;
 }

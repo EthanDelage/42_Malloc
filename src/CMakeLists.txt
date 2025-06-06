@@ -42,4 +42,4 @@ set_directory_properties(PROPERTIES
 target_include_directories(${MALLOC_LIB_TARGET} PUBLIC ${PROJECT_SOURCE_DIR}/include)
 #target_compile_options(${MALLOC_LIB_TARGET} PRIVATE -fvisibility=hidden)
 
-set_source_files_properties(realloc.c PROPERTIES COMPILE_FLAGS "-Wno-maybe-uninitialized")
+#set_source_files_properties(realloc.c PROPERTIES COMPILE_FLAGS "-Wno-maybe-uninitialized")

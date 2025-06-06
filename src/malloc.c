@@ -15,8 +15,16 @@ static void *allocate_normal_zone(size_t size, zone_type_t zone_type,
 static void *allocate_large_zone(size_t size);
 static page_header_t *allocate_page(zone_type_t zone_type);
 
+void *reallocarray(void *ptr, size_t nmemb, size_t size) {
+    (void) ptr;
+    (void) nmemb;
+    (void) size;
+    printf("reallocarray\n");
+    return ptr;
+}
+
 void *malloc(size_t size) {
-    printf("malloc: %zu\n", size);
+    printf("malloc(%zu); ", size);
     zone_type_t type = get_zone_type(size);
     void *ptr;
 
@@ -27,8 +35,8 @@ void *malloc(size_t size) {
     } else {
         ptr = allocate_large_zone(size);
     }
-    printf("%p\n", ptr);
-    show_alloc_mem();
+    printf("// %p\n", ptr);
+    printf("\n\n");
     return ptr;
 }
 
@@ -48,6 +56,7 @@ static void *allocate_normal_zone(size_t size, zone_type_t zone_type,
     chunk_dll_transfer_sorted(&page->alloc_list, chunk);
     update_max_free_chunk_size(page);
     chunk->in_use = 1;
+    // print_page(page, "TEST", 0);
     return get_chunk_data(chunk);
 }
 
@@ -83,6 +92,7 @@ static page_header_t *allocate_page(zone_type_t zone_type) {
     chunk->size = zone_size - (sizeof(page_header_t) + sizeof(chunk_header_t));
     page->max_free_chunk_size = chunk->size;
     chunk->in_use = 0;
+    chunk->type = zone_size;
     chunk->next = NULL;
     chunk->previous = NULL;
     return page;

@@ -1,5 +1,11 @@
 #include "chunk/chunk_search.h"
 
+#include "chunk/chunk_utils.h"
+#include "utils/printf.h"
+
+
+void print_page(page_header_t *page, const char *zone_str, size_t index);
+
 /**
  * @brief Checks whether a specific chunk exists within any page starting from
  * the given page header.
@@ -15,15 +21,19 @@ int is_chunk_in_pages(page_header_t *page_head, chunk_header_t *target_chunk) {
     void *page_end;
 
     while (page_head != NULL) {
+        print_page(page_head, "clear", 0);
+        printf("search: %p\n", get_chunk_data(target_chunk));
         page_end = (uint8_t *)page_head + page_head->size;
         if ((void *)target_chunk > (void *)page_head &&
             (void *)target_chunk < page_end &&
             (is_chunk_in_list(page_head->alloc_list, target_chunk) == 1 ||
              is_chunk_in_list(page_head->free_list, target_chunk) == 1)) {
+            printf("found\n");
             return 1;
         }
         page_head = page_head->next;
     }
+    printf("not found\n");
     return 0;
 }
 

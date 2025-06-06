@@ -5,17 +5,23 @@
 
 static void print_normal_zone(page_header_t *head, const char *zone_str);
 static void print_large_zone();
-static void print_page(page_header_t *page, const char *zone_str, size_t index);
+void print_page(page_header_t *page, const char *zone_str, size_t index);
 static void print_chunk_dll(chunk_header_t *chunk);
 static size_t get_allocated_size();
 static size_t get_normal_zone_size(page_header_t *head);
 static size_t get_chunk_dll_size(chunk_header_t *head);
 
 void show_alloc_mem(void) {
-    print_normal_zone(malloc_data.tiny, "TINY");
-    print_normal_zone(malloc_data.small, "SMALL");
-    print_large_zone();
-    printf("Total: %zu\n", get_allocated_size());
+    static size_t count = 0;
+
+
+    if (count > 3250) {
+        print_normal_zone(malloc_data.tiny, "TINY");
+        print_normal_zone(malloc_data.small, "SMALL");
+        print_large_zone();
+        printf("Total: %zu\n", get_allocated_size());
+    }
+    count++;
 }
 
 static void print_normal_zone(page_header_t *head, const char *zone_str) {
@@ -33,10 +39,12 @@ static void print_large_zone() {
     print_chunk_dll(malloc_data.large);
 }
 
-static void print_page(page_header_t *page, const char *zone_str,
+void print_page(page_header_t *page, const char *zone_str,
                        size_t index) {
-    printf("%s (%zu): 0x%p\n", zone_str, index, page);
+    printf("%s (%zu): 0x%p - 0x%p\n", zone_str, index, page, ((char *)page) + page->size );
     print_chunk_dll(page->alloc_list);
+    printf("\tfree:\n");
+    print_chunk_dll(page->free_list);
 }
 
 static void print_chunk_dll(chunk_header_t *chunk) {
@@ -44,7 +52,7 @@ static void print_chunk_dll(chunk_header_t *chunk) {
 
     while (chunk != NULL) {
         ptr = get_chunk_data(chunk);
-        printf("0x%p - 0x%p: %zu bytes\n", ptr, ptr + chunk->size, chunk->size);
+        printf("0x%p - 0x%p: %zu bytes (status: %d)\n", ptr, ptr + chunk->size, chunk->size, chunk->in_use);
         chunk = chunk->next;
     }
 }

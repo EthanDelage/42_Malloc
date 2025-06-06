@@ -129,11 +129,20 @@ typedef struct {
   void* arg;
 } out_fct_wrap_type;
 
+#define BUF_SIZE 4096
 
-void _putchar(char character)
-{
-    // write(1, &character, 1);
-    (void) character;
+void _putchar(char character) {
+    static char buf[BUF_SIZE];
+    static size_t index = 0;
+
+    buf[index] = character;
+    index++;
+    if (index == BUF_SIZE || (buf[index -1] == '\n' && index > 15)) {
+        write(1, buf, index);
+        // (void) buf;
+        index = 0;
+    }
+    // (void) character;
 }
 
 // internal buffer output

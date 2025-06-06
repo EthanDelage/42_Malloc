@@ -10,8 +10,10 @@
 static void free_normal_zone(chunk_header_t *chunk, page_header_t **head);
 static void free_large_zone(chunk_header_t *chunk);
 
+void print_page(page_header_t *page, const char *zone_str, size_t index);
+
 void free(void *ptr) {
-    printf("free: %p\n", ptr);
+    printf("free(%p);\n", ptr);
     if (ptr == NULL) {
         return;
     }
@@ -29,6 +31,7 @@ void free(void *ptr) {
     } else if (type == LARGE) {
         free_large_zone(chunk);
     }
+    // printf("free end\n");
 }
 
 static void free_normal_zone(chunk_header_t *chunk, page_header_t **head) {
@@ -40,6 +43,7 @@ static void free_normal_zone(chunk_header_t *chunk, page_header_t **head) {
     chunk_dll_transfer_sorted(&chunk_page->free_list, chunk);
     chunk->in_use = 0;
     chunk_coalesce_surrounding(chunk);
+    // print_page(chunk_page, "undefined", 0);
     if (chunk_page->alloc_list == NULL &&
         (chunk_page->previous != NULL || chunk_page->next != NULL)) {
         if (chunk_page->previous == NULL) {
@@ -51,6 +55,7 @@ static void free_normal_zone(chunk_header_t *chunk, page_header_t **head) {
     } else {
         update_max_free_chunk_size(chunk_page);
     }
+    printf("\n\n");
 }
 
 static void free_large_zone(chunk_header_t *chunk) {
