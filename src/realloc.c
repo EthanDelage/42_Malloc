@@ -68,7 +68,9 @@ static chunk_header_t *realloc_shrink(chunk_header_t *chunk, size_t size,
     }
     if (type != LARGE) {
         new_chunk = chunk_split(chunk, size);
-        free(new_chunk);
+        if (new_chunk != NULL) {
+            free(get_chunk_data(new_chunk));
+        }
     }
     return chunk;
 }
@@ -93,6 +95,7 @@ static chunk_header_t *realloc_large_zone(chunk_header_t *chunk, size_t size) {
 }
 
 static chunk_header_t *realloc_with_copy(chunk_header_t *chunk, size_t size) {
+    void *chunk_ptr = get_chunk_data(chunk);
     void *new_ptr = malloc(size);
     chunk_header_t *new_chunk;
 
@@ -100,8 +103,8 @@ static chunk_header_t *realloc_with_copy(chunk_header_t *chunk, size_t size) {
         return NULL;
     }
     new_chunk = get_chunk_from_data(new_ptr);
-    ft_memcpy(new_ptr, get_chunk_data(chunk), chunk->size);
-    free(chunk);
+    ft_memcpy(new_ptr, chunk_ptr, chunk->size);
+    free(chunk_ptr);
     return new_chunk;
 }
 
