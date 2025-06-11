@@ -14,6 +14,7 @@ add_library(${MALLOC_LIB_TARGET} SHARED
         utils/memcpy.c
         utils/memset.c
         utils/printf.c
+        utils/min.c
         ${PROJECT_SOURCE_DIR}/include/malloc.h
         ${PROJECT_SOURCE_DIR}/include/memory/memory_utils.h
         ${PROJECT_SOURCE_DIR}/include/memory/memory_zone.h
