@@ -53,7 +53,7 @@ static chunk_header_t *realloc_expand(chunk_header_t *chunk, size_t size,
         return realloc_normal_zone(chunk, size, type, malloc_data.tiny);
     }
     if (type == SMALL) {
-        return realloc_normal_zone(chunk, size, type, malloc_data.tiny);
+        return realloc_normal_zone(chunk, size, type, malloc_data.small);
     }
     if (type == LARGE) {
         return realloc_large_zone(chunk, size);
