@@ -8,6 +8,8 @@
 #include "utils/libft.h"
 #include "utils/printf.h"
 
+#include <stdlib.h>
+
 static chunk_header_t *realloc_expand(chunk_header_t *chunk, size_t size,
                                       zone_type_t type);
 static chunk_header_t *realloc_shrink(chunk_header_t *chunk, size_t size,
@@ -31,8 +33,8 @@ void *realloc(void *ptr, size_t size) {
     zone_type_t type = get_chunk_zone_type(chunk);
 
     if (type == INVALID) {
-        // TODO: handle error (invalid ptr)
-        return NULL;
+        printf("realloc(): invalid pointer\n");
+        abort();
     }
     if (size > chunk->size) {
         chunk = realloc_expand(chunk, size, type);

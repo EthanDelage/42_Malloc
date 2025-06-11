@@ -7,6 +7,8 @@
 #include "memory/memory_zone.h"
 #include "utils/printf.h"
 
+#include <stdlib.h>
+
 static void free_normal_zone(chunk_header_t *chunk, page_header_t **head);
 static void free_large_zone(chunk_header_t *chunk);
 
@@ -19,8 +21,8 @@ void free(void *ptr) {
     zone_type_t type = get_chunk_zone_type(chunk);
 
     if (type == INVALID || chunk->in_use == 0) {
-        // TODO: handle error (invalid ptr)
-        return;
+        printf("free(): invalid pointer\n");
+        abort();
     }
     if (type == TINY) {
         free_normal_zone(chunk, &malloc_data.tiny);
@@ -47,7 +49,8 @@ static void free_normal_zone(chunk_header_t *chunk, page_header_t **head) {
         }
         page_list_remove(chunk_page);
         if (unmap_heap_region(chunk_page, chunk_page->size) == -1) {
-            // TODO: handle error
+            printf("munmap(): failed\n");
+            abort();
         }
     } else {
         update_max_free_chunk_size(chunk_page);
@@ -62,6 +65,7 @@ static void free_large_zone(chunk_header_t *chunk) {
     }
     chunk_dll_remove(chunk);
     if (unmap_heap_region(chunk, page_size) == -1) {
-        // TODO: handle error
+        printf("munmap(): failed\n");
+        abort();
     }
 }

@@ -8,6 +8,8 @@
 #include "memory/memory_zone.h"
 #include "utils/printf.h"
 
+#include <sys/mman.h>
+
 malloc_data_t malloc_data = {0};
 
 static void *allocate_normal_zone(size_t size, zone_type_t zone_type,
@@ -36,9 +38,14 @@ static void *allocate_normal_zone(size_t size, zone_type_t zone_type,
                                   page_header_t **head) {
     page_header_t *page = find_available_page(*head, size);
     chunk_header_t *chunk = find_free_chunk(page, size);
+    page_header_t *new_page;
 
     if (chunk == NULL) {
-        page_list_insert(head, allocate_page(zone_type));
+        new_page = allocate_page(zone_type);
+        if (new_page == NULL) {
+            return NULL;
+        }
+        page_list_insert(head, new_page);
         return allocate_normal_zone(size, zone_type, head);
     }
     chunk_split(chunk, size);
@@ -57,6 +64,9 @@ static void *allocate_large_zone(size_t size) {
 
     size = align_page(sizeof(chunk_header_t) + size);
     map_ptr = map_heap_region(size);
+    if (map_ptr == MAP_FAILED) {
+        return NULL;
+    }
     chunk = (chunk_header_t *)map_ptr;
     chunk->size = size - sizeof(chunk_header_t);
     chunk->in_use = 1;
@@ -73,6 +83,9 @@ static page_header_t *allocate_page(zone_type_t zone_type) {
     chunk_header_t *chunk;
 
     map_ptr = map_heap_region(zone_size);
+    if (map_ptr == MAP_FAILED) {
+        return NULL;
+    }
     page = (page_header_t *)map_ptr;
     chunk = (chunk_header_t *)((uint8_t *)map_ptr + sizeof(page_header_t));
     page->alloc_list = NULL;
