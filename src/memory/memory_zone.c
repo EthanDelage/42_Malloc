@@ -52,9 +52,19 @@ zone_type_t get_zone_type(size_t size) {
 zone_type_t get_chunk_zone_type(chunk_header_t *chunk) {
     zone_type_t type = get_zone_type(chunk->size);
 
-    if ((type == TINY && !is_chunk_in_pages(malloc_data.tiny, chunk)) ||
-        (type == SMALL && !is_chunk_in_pages(malloc_data.small, chunk)) ||
-        (type == LARGE && !is_chunk_in_list(malloc_data.large, chunk))) {
+    if (type == TINY && !is_chunk_in_pages(malloc_data.tiny, chunk)) {
+        return INVALID;
+    }
+    if (type == SMALL && !is_chunk_in_pages(malloc_data.small, chunk)) {
+        if (is_chunk_in_pages(malloc_data.tiny, chunk)) {
+            return TINY;
+        }
+        return INVALID;
+    }
+    if (type == LARGE && !is_chunk_in_list(malloc_data.large, chunk)) {
+        if (is_chunk_in_pages(malloc_data.small, chunk)) {
+            return SMALL;
+        }
         return INVALID;
     }
     return type;
