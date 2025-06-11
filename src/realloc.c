@@ -106,7 +106,7 @@ static chunk_header_t *realloc_with_copy(chunk_header_t *chunk, size_t size) {
         return NULL;
     }
     new_chunk = get_chunk_from_data(new_ptr);
-    ft_memcpy(new_ptr, chunk_ptr, chunk->size);
+    ft_memcpy(new_ptr, chunk_ptr, ft_min(chunk->size, size));
     free(chunk_ptr);
     return new_chunk;
 }
