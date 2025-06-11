@@ -11,7 +11,7 @@ static void free_normal_zone(chunk_header_t *chunk, page_header_t **head);
 static void free_large_zone(chunk_header_t *chunk);
 
 void free(void *ptr) {
-    printf("free: %p\n", ptr);
+    printf("free(%p);\n", ptr);
     if (ptr == NULL) {
         return;
     }
