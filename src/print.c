@@ -29,8 +29,10 @@ static void print_normal_zone(page_header_t *head, const char *zone_str) {
 }
 
 static void print_large_zone() {
-    printf("LARGE:\n");
-    print_chunk_dll(malloc_data.large);
+    if (malloc_data.large != NULL) {
+        printf("LARGE:\n");
+        print_chunk_dll(malloc_data.large);
+    }
 }
 
 static void print_page(page_header_t *page, const char *zone_str,
