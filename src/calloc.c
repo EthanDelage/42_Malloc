@@ -3,6 +3,7 @@
 #include "utils/printf.h"
 
 void *calloc(size_t nmemb, size_t size) {
+    // printf("calloc(%zu, %zu);", nmemb, size);
     void *ptr;
     size_t total_size = nmemb * size;
 

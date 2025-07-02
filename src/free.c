@@ -13,6 +13,12 @@ static void free_normal_zone(chunk_header_t *chunk, page_header_t **head);
 static void free_large_zone(chunk_header_t *chunk);
 
 void free(void *ptr) {
+    static size_t count = 0;
+    // printf("free(%p); //%zu\n", ptr, count);
+    count++;
+    // if (count > 50500) {
+    //     show_alloc_mem();
+    // }
     if (ptr == NULL) {
         return;
     }
@@ -20,7 +26,10 @@ void free(void *ptr) {
     zone_type_t type = get_chunk_zone_type(chunk);
 
     if (type == INVALID || chunk->in_use == 0) {
+        // show_alloc_mem();
+        printf("%p\n", ptr);
         printf("free(): invalid pointer\n");
+        return;
         abort();
     }
     if (type == TINY) {

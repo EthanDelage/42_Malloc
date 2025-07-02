@@ -4,6 +4,7 @@
 #include "memory/malloc_data.h"
 #include "memory/memory_utils.h"
 #include "memory/page_header.h"
+#include "utils/printf.h"
 
 /**
  * @brief Calculates the total size required for a memory zone based on its

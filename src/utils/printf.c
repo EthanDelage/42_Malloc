@@ -129,10 +129,19 @@ typedef struct {
   void* arg;
 } out_fct_wrap_type;
 
+#define BUF_SIZE 4096
 
 void _putchar(char character)
 {
-    write(1, &character, 1);
+    static size_t index = 0;
+    static char buf[BUF_SIZE];
+
+    buf[index] = character;
+    index++;
+    if (index == BUF_SIZE || character == '\n') {
+        write(1, buf, index);
+        index = 0;
+    }
 }
 
 // internal buffer output
@@ -867,6 +876,7 @@ static int _vsnprintf(out_fct_type out, char* buffer, const size_t maxlen, const
 
 int printf_(const char* format, ...)
 {
+  // return 0;
   va_list va;
   va_start(va, format);
   char buffer[1];

@@ -18,6 +18,7 @@ static void *allocate_large_zone(size_t size);
 static page_header_t *allocate_page(zone_type_t zone_type);
 
 void *malloc(size_t size) {
+    // printf("malloc(%zu);", size);
     zone_type_t type = get_zone_type(size);
     void *ptr;
 
@@ -28,6 +29,7 @@ void *malloc(size_t size) {
     } else {
         ptr = allocate_large_zone(size);
     }
+    // printf(" // %p\n", ptr);
     return ptr;
 }
 
@@ -80,6 +82,7 @@ static page_header_t *allocate_page(zone_type_t zone_type) {
     chunk_header_t *chunk;
 
     map_ptr = map_heap_region(zone_size);
+    // printf("map_ptr: %p\n", map_ptr);
     if (map_ptr == MAP_FAILED) {
         return NULL;
     }

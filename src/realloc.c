@@ -24,6 +24,7 @@ static chunk_header_t *extend_chunk_allocation(chunk_header_t *chunk,
                                                page_header_t *page_head);
 
 void *realloc(void *ptr, size_t size) {
+    // printf("realloc(%p, %zu);", ptr, size);
     if (ptr == NULL) {
         return malloc(size);
     }
@@ -42,6 +43,7 @@ void *realloc(void *ptr, size_t size) {
     if (chunk == NULL) {
         return NULL;
     }
+    // printf(" // %p\n", ptr);
     return get_chunk_data(chunk);
 }
 
