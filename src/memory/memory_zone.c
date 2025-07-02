@@ -53,6 +53,9 @@ zone_type_t get_chunk_zone_type(chunk_header_t *chunk) {
     zone_type_t type = get_zone_type(chunk->size);
 
     if (type == TINY && !is_chunk_in_pages(malloc_data.tiny, chunk)) {
+        if (is_chunk_in_pages(malloc_data.small, chunk)) {
+            return SMALL;
+        }
         return INVALID;
     }
     if (type == SMALL && !is_chunk_in_pages(malloc_data.small, chunk)) {
