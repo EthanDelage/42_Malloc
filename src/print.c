@@ -1,7 +1,11 @@
 #include "chunk/chunk_utils.h"
 #include "memory/malloc_data.h"
+#include "memory/memory_zone.h"
 #include "memory/page_header.h"
+#include "utils/libft.h"
 #include "utils/printf.h"
+
+#include <stdlib.h>
 
 static void print_normal_zone(page_header_t *head, const char *zone_str);
 static void print_large_zone();
@@ -10,6 +14,7 @@ static void print_chunk_dll(chunk_header_t *chunk);
 static size_t get_allocated_size();
 static size_t get_normal_zone_size(page_header_t *head);
 static size_t get_chunk_dll_size(chunk_header_t *head);
+static void hexdump(const void *data, size_t size);
 
 __attribute__((visibility("default")))
 void show_alloc_mem(void) {
@@ -17,6 +22,18 @@ void show_alloc_mem(void) {
     print_normal_zone(malloc_data.small, "SMALL");
     print_large_zone();
     printf("Total: %zu\n", get_allocated_size());
+}
+
+__attribute__((visibility("default")))
+void show_alloc_mem_hex(void *ptr) {
+    chunk_header_t *chunk = get_chunk_from_data(ptr);
+
+    if (get_chunk_zone_type(chunk) == INVALID) {
+        printf("show_alloc_mem_hex(): invalid pointer\n");
+        abort();
+    }
+    printf("%p (%zu bytes)\n", ptr, chunk->size);
+    hexdump(ptr, chunk->size);
 }
 
 static void print_normal_zone(page_header_t *head, const char *zone_str) {
@@ -76,4 +93,32 @@ static size_t get_chunk_dll_size(chunk_header_t *head) {
         head = head->next;
     }
     return size;
+}
+
+static void hexdump(const void *data, size_t size) {
+    const unsigned char *byte = data;
+    size_t i, j;
+
+    for (i = 0; i < size; i += 16) {
+        // Print offset
+        printf("%p %08zx  ", data + size, i);
+
+        // Print hex bytes
+        for (j = 0; j < 16; j++) {
+            if (i + j < size)
+                printf("%02x ", byte[i + j]);
+            else
+                printf("   "); // padding for incomplete line
+            if (j == 7)
+                printf(" "); // extra space in the middle
+        }
+
+        // Print ASCII representation
+        printf(" |");
+        for (j = 0; j < 16 && i + j < size; j++) {
+            unsigned char c = byte[i + j];
+            printf("%c", ft_isprint(c) ? c : '.');
+        }
+        printf("|\n");
+    }
 }

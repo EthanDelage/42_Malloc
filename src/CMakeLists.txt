@@ -11,6 +11,7 @@ add_library(${MALLOC_LIB_TARGET} SHARED
         memory/memory_utils.c
         memory/memory_zone.c
         memory/page_header.c
+        utils/isprint.c
         utils/memcpy.c
         utils/memset.c
         utils/printf.c
