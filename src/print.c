@@ -11,6 +11,7 @@ static size_t get_allocated_size();
 static size_t get_normal_zone_size(page_header_t *head);
 static size_t get_chunk_dll_size(chunk_header_t *head);
 
+__attribute__((visibility("default")))
 void show_alloc_mem(void) {
     print_normal_zone(malloc_data.tiny, "TINY");
     print_normal_zone(malloc_data.small, "SMALL");
